@@ -1,6 +1,6 @@
 <h1>ÇaxırBook(Means Winebook) Social Media</h1>
 <h2>Django Rest Framework API + React</h2>
-(Sorry for shitty frontend design. I didn't spend much for frontend)
+
 <h1>Features</h1><br>
 
 ```diff
