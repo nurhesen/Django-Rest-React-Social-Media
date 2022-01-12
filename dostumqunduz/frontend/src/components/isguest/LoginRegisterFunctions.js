@@ -1,121 +1,96 @@
-import React, { Component, useEffect, useState, useRef, useImperativeHandle } from "react";
+import React, {
+  Component,
+  useEffect,
+  useState,
+  useRef,
+  useImperativeHandle,
+} from "react";
 
-
-
-const LoginFunc = (email, password)=>{
-  const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+const LoginFunc = (email, password) => {
+  const csrftoken = document.querySelector("[name=csrfmiddlewaretoken]").value;
   const cdata = {
-      "email": email,
-      "password": password
+    email: email,
+    password: password,
   };
-  const url = window.location.protocol+'//'+window.location.host;
+  const url = window.location.protocol + "//" + window.location.host;
 
-  return fetch(url+'/api/auth/login/', {
-    method: 'POST',
-    mode: 'same-origin',
-    credentials: 'include',
+  return fetch(url + "/api/auth/login/", {
+    method: "POST",
+    mode: "same-origin",
+    credentials: "include",
     headers: {
-    'Content-Type': 'application/json',
-      'X-CSRFToken': csrftoken
+      "Content-Type": "application/json",
+      "X-CSRFToken": csrftoken,
     },
-    body: JSON.stringify(cdata)
-
+    body: JSON.stringify(cdata),
   }).then((response) => {
-      if(response.ok){
-          console.log('ok')
-          return response.json()
+    if (response.ok) {
+      console.log("ok");
+      return response.json();
+    } else if (response.status === 403) {
+      return "403";
+    } else {
+      console.log(response.status);
+      return false;
+    }
+  });
+};
 
-      }else if(response.status===403){
-        return '403'
-      }else{
-        console.log(response.status)
-        return false
-      } 
-  })
-}
-
-
-
-
-
-
-
-
-
-const RegisterFunc = (formData, ftypem)=>{
-  const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-
-
+const RegisterFunc = (formData, ftypem) => {
+  const csrftoken = document.querySelector("[name=csrfmiddlewaretoken]").value;
 
   let header;
 
   let bodys;
-if(ftypem){
-  header={
-    headers: {
-      'X-CSRFToken': csrftoken
-    }
+  if (ftypem) {
+    header = {
+      headers: {
+        "X-CSRFToken": csrftoken,
+      },
+    };
+
+    bodys = {
+      body: formData,
+    };
+  } else {
+    let object = {};
+    formData.forEach(function (value, key) {
+      key !== "picture" ? (object[key] = value) : null;
+    });
+    let json = JSON.stringify(object);
+
+    bodys = {
+      body: json,
+    };
+    header = {
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": csrftoken,
+      },
+    };
   }
+  console.log("-------");
 
-  bodys={
-    body:formData
-  }
-}else{
-  let object = {}
-  formData.forEach(function(value, key){
-    key!=='picture'?object[key] = value:null;
-      
+  console.log(header);
+  console.log("-------");
+  console.log(bodys);
 
-  });
-  let json = JSON.stringify(object);
-  
-  bodys={
-    body:json
-  }
-  header={
-    headers: {
-      'Content-Type': 'application/json',
-      'X-CSRFToken': csrftoken
-    }
-  }
-}
-console.log('-------')
+  const url = window.location.protocol + "//" + window.location.host;
 
-console.log(header)
-console.log('-------')
-console.log(bodys)
-
-
-  
-const url = window.location.protocol+'//'+window.location.host;
-
-  return (fetch(url+'/api/register/', {
-    method: 'POST',
+  return fetch(url + "/api/register/", {
+    method: "POST",
 
     ...header,
-    ...bodys
-
+    ...bodys,
   }).then((response) => {
-
     if (response.ok) {
-      console.log(response)
+      console.log(response);
 
       return response.json();
     } else {
       return false;
     }
-
-
-
-  }))
-}
-
-
-
-
-
-export {
-  LoginFunc,
-    RegisterFunc,
-
+  });
 };
+
+export { LoginFunc, RegisterFunc };

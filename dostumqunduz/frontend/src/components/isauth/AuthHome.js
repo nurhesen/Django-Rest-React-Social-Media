@@ -73,7 +73,7 @@ export default function AuthHome(props) {
                       className="morePost"
                       style={{ marginLeft: "auto", marginRight: "auto" }}
                     >
-                      {props.next ? <div className="c-p">Daha çox</div> : null}
+                      {props.next ? <div className="c-p">See More</div> : null}
                     </div>
                   </div>
                 </>
