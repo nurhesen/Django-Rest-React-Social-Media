@@ -120,14 +120,14 @@ export default function GuestHome(props) {
             <>
               <input
                 name="uname"
-                placeholder="Ad"
+                placeholder="Name"
                 value={Name}
                 onChange={handleChange}
                 required
               />
               <input
                 name="last_name"
-                placeholder="Soyad"
+                placeholder="Last Name"
                 value={LastName}
                 onChange={handleChange}
                 required
