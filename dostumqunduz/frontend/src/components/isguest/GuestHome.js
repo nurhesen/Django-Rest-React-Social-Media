@@ -174,7 +174,7 @@ export default function GuestHome(props) {
           />
           <input
             name="password"
-            placeholder="Şifrə Yazın"
+            placeholder="Password"
             type="password"
             value={Password}
             onChange={handleChange}
