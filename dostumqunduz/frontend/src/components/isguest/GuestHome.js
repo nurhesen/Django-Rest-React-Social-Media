@@ -223,7 +223,9 @@ export default function GuestHome(props) {
         }}
         className="form-button-div"
       >
-        <p>{Form === "log_in" ? "Hesabınız yoxdur?" : "Artıq üzvüsünüz?"}</p>
+        <p>
+          {Form === "log_in" ? "Don't have an account?" : "Already a member?"}
+        </p>
         <button
           onClick={() => {
             SetForm(toggle[Form]);
